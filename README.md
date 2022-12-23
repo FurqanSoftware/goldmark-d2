@@ -7,7 +7,13 @@ Goldmark D2 is a [Goldmark](https://github.com/yuin/goldmark) extension providin
 ## Usage
 
 ``` go
-goldmark.New(goldmark.WithExtensions(&Extender{})).Convert(src, dst)
+goldmark.New(
+	goldmark.WithExtensions(&Extender{
+		// Defaults when omitted
+		Layout:  d2dagrelayout.Layout,
+		ThemeID: d2themescatalog.CoolClassics.ID,
+	}),
+).Convert(src, dst)
 ```
 
 ## Example
@@ -32,3 +38,7 @@ x -> y
 </td>
 </tr>
 </table>
+
+## To-dos
+
+- [ ] Option for hand-drawn rendering (once it is released)

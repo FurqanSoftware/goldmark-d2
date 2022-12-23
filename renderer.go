@@ -7,6 +7,7 @@ import (
 	"github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/renderer"
 	"github.com/yuin/goldmark/util"
+	"oss.terrastruct.com/d2/d2graph"
 	"oss.terrastruct.com/d2/d2layouts/d2dagrelayout"
 	"oss.terrastruct.com/d2/d2lib"
 	"oss.terrastruct.com/d2/d2renderers/d2svg"
@@ -14,7 +15,14 @@ import (
 	"oss.terrastruct.com/d2/lib/textmeasure"
 )
 
+var (
+	defaultLayout  = d2dagrelayout.Layout
+	defaultThemeID = d2themescatalog.CoolClassics.ID
+)
+
 type HTMLRenderer struct {
+	Layout  func(context.Context, *d2graph.Graph) error
+	ThemeID int64
 }
 
 func (r *HTMLRenderer) RegisterFuncs(reg renderer.NodeRendererFuncRegisterer) {
@@ -44,11 +52,18 @@ func (r *HTMLRenderer) Render(w util.BufWriter, src []byte, node ast.Node, enter
 	if err != nil {
 		return ast.WalkStop, err
 	}
-	diagram, _, err := d2lib.Compile(context.Background(), b.String(), &d2lib.CompileOptions{
-		Layout:  d2dagrelayout.Layout,
+	opts := &d2lib.CompileOptions{
+		Layout:  defaultLayout,
 		Ruler:   ruler,
-		ThemeID: d2themescatalog.CoolClassics.ID,
-	})
+		ThemeID: defaultThemeID,
+	}
+	if r.Layout != nil {
+		opts.Layout = r.Layout
+	}
+	if r.ThemeID != 0 {
+		opts.ThemeID = r.ThemeID
+	}
+	diagram, _, err := d2lib.Compile(context.Background(), b.String(), opts)
 	if err != nil {
 		_, err = w.Write(b.Bytes())
 		return ast.WalkContinue, err
