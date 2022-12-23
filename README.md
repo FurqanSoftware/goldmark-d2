@@ -42,3 +42,7 @@ x -> y
 ## To-dos
 
 - [ ] Option for hand-drawn rendering (once it is released)
+
+## More Goldmark Extensions
+
+- [Katex](https://github.com/FurqanSoftware/goldmark-katex): math and equation support through [KaTeX](https://katex.org/)
