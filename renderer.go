@@ -32,10 +32,10 @@ func (r *HTMLRenderer) RegisterFuncs(reg renderer.NodeRendererFuncRegisterer) {
 func (r *HTMLRenderer) Render(w util.BufWriter, src []byte, node ast.Node, entering bool) (ast.WalkStatus, error) {
 	n := node.(*Block)
 	if !entering {
-		w.WriteString("</p>")
+		w.WriteString("</div>")
 		return ast.WalkContinue, nil
 	}
-	w.WriteString(`<p class="d2">`)
+	w.WriteString(`<div class="d2">`)
 
 	b := bytes.Buffer{}
 	lines := n.Lines()
