@@ -13,6 +13,7 @@ import (
 type Extender struct {
 	Layout  func(context.Context, *d2graph.Graph) error
 	ThemeID int64
+	Sketch  bool
 }
 
 func (e *Extender) Extend(m goldmark.Markdown) {
@@ -23,6 +24,7 @@ func (e *Extender) Extend(m goldmark.Markdown) {
 		util.Prioritized(&HTMLRenderer{
 			Layout:  e.Layout,
 			ThemeID: e.ThemeID,
+			Sketch:  e.Sketch,
 		}, 0),
 	))
 }

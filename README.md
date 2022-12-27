@@ -37,11 +37,35 @@ x -> y
 
 </td>
 </tr>
+
+<tr>
+<td>
+
+~~~markdown
+```d2
+dogs -> cats -> mice: chase
+replica 1 <-> replica 2
+a -> b: To err is human, to moo bovine {
+  source-arrowhead: 1
+  target-arrowhead: * {
+    shape: diamond
+  }
+}
+```
+~~~
+
+</td>
+<td>
+
+![](testdata/connections.png)
+
+</td>
+</tr>
 </table>
 
 ## To-dos
 
-- [ ] Option for hand-drawn rendering (once it is released)
+- [x] Option for hand-drawn rendering
 
 ## More Goldmark Extensions
 

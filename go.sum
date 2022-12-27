@@ -1,5 +1,7 @@
 cdr.dev/slog v1.4.2-0.20220126003130-b94a5ff54f37 h1:HKrgyYmZ/yMAnp3RnTIqMUXWJKChytyiMRt3EZn45g0=
 cdr.dev/slog v1.4.2-0.20220126003130-b94a5ff54f37/go.mod h1:WtpxhixLjbk2XsSYR4xPIFAYhHJWQjE2qKqwWe/90Ec=
+cdr.dev/slog v1.4.2-0.20221206192828-e4803b10ae17 h1:Jf+VOk2lif79HeTlnLaZ70zYTsuVSUEu/47U9VaG2Rw=
+cdr.dev/slog v1.4.2-0.20221206192828-e4803b10ae17/go.mod h1:YPVZsUbRMaLaPgme0RzlPWlC7fI7YmDj/j/kZLuvICs=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.38.0/go.mod h1:990N+gfupTy94rShfmMCWGDn0LpTmnzTp2qbd1dvSRU=
@@ -627,8 +629,12 @@ honnef.co/go/tools v0.0.1-2020.1.3/go.mod h1:X/FiERA/W4tHapMX5mGpAtMSVEeEUOyHaw9
 honnef.co/go/tools v0.0.1-2020.1.4/go.mod h1:X/FiERA/W4tHapMX5mGpAtMSVEeEUOyHaw9vFzvIQ3k=
 oss.terrastruct.com/d2 v0.1.2 h1:hshscNfRoIB5KIheS9w7rLU1gfCWBxVC+T6ykDO+Ocw=
 oss.terrastruct.com/d2 v0.1.2/go.mod h1:5iCSaXju6CODtUWd0H5u0QnYO19PBzsQzgvSktjTXDU=
+oss.terrastruct.com/d2 v0.1.3 h1:a9ZymoWSBzMNeLcLIggtfI0No05tDEfuGZsegg5Lba0=
+oss.terrastruct.com/d2 v0.1.3/go.mod h1:RFg3HvInAbPc1kbRxLYrx4DW3hiFgfVB1HAxINfVwno=
 oss.terrastruct.com/util-go v0.0.0-20221219053816-eb266649d2ed h1:Vj/zqxUmxTIYNZO4xbd4NfPR/ZtzLizE/MWyM7ufxIY=
 oss.terrastruct.com/util-go v0.0.0-20221219053816-eb266649d2ed/go.mod h1:Fwy72FDIOOM4K8F96ScXkxHHppR1CPfUyo9+x9c1PBU=
+oss.terrastruct.com/util-go v0.0.0-20221226181616-c04ce7d1b79f h1:psTZna5TN42M+DA1oiuIATH/mxdQ81kNoYUcWXyrAYE=
+oss.terrastruct.com/util-go v0.0.0-20221226181616-c04ce7d1b79f/go.mod h1:Fwy72FDIOOM4K8F96ScXkxHHppR1CPfUyo9+x9c1PBU=
 rsc.io/binaryregexp v0.2.0/go.mod h1:qTv7/COck+e2FymRvadv62gMdZztPaShugOCi3I+8D8=
 rsc.io/quote/v3 v3.1.0/go.mod h1:yEA65RcK8LyAZtP9Kv3t0HmxON59tX3rD+tICJqUlj0=
 rsc.io/sampler v1.3.0/go.mod h1:T1hPZKmBbMNahiBKFy5HrXp6adAjACjK9JXDnKaTXpA=

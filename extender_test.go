@@ -2,6 +2,7 @@ package d2
 
 import (
 	"bytes"
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"strings"
@@ -30,7 +31,15 @@ func TestExtenderTestExtender(t *testing.T) {
 				t.Fatal(err)
 			}
 			got := bytes.Buffer{}
-			err = goldmark.New(goldmark.WithExtensions(&Extender{})).Convert(in, &got)
+			extender := &Extender{}
+			cfgfile, err := os.ReadFile(filepath.Join("testdata", strings.TrimSuffix(entry.Name(), ".md")+".json"))
+			if !os.IsNotExist(err) {
+				err = json.Unmarshal(cfgfile, &extender)
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
+			err = goldmark.New(goldmark.WithExtensions(extender)).Convert(in, &got)
 			if err != nil {
 				t.Fatal(err)
 			}

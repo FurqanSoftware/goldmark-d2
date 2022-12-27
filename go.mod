@@ -5,7 +5,7 @@ go 1.19
 require github.com/yuin/goldmark v1.5.3
 
 require (
-	cdr.dev/slog v1.4.2-0.20220126003130-b94a5ff54f37 // indirect
+	cdr.dev/slog v1.4.2-0.20221206192828-e4803b10ae17 // indirect
 	github.com/PuerkitoBio/goquery v1.8.0 // indirect
 	github.com/alecthomas/chroma v0.10.0 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect
@@ -30,6 +30,6 @@ require (
 	golang.org/x/text v0.4.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	gonum.org/v1/plot v0.12.0 // indirect
-	oss.terrastruct.com/d2 v0.1.2 // indirect
-	oss.terrastruct.com/util-go v0.0.0-20221219053816-eb266649d2ed // indirect
+	oss.terrastruct.com/d2 v0.1.3 // indirect
+	oss.terrastruct.com/util-go v0.0.0-20221226181616-c04ce7d1b79f // indirect
 )
