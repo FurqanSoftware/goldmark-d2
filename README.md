@@ -41,6 +41,8 @@ x -> y
 <tr>
 <td>
 
+{Sketch: true}
+
 ~~~markdown
 ```d2
 dogs -> cats -> mice: chase
