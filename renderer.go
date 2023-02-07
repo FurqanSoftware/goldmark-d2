@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	defaultLayout  = d2dagrelayout.Layout
+	defaultLayout  = d2dagrelayout.DefaultLayout
 	defaultThemeID = d2themescatalog.CoolClassics.ID
 )
 
