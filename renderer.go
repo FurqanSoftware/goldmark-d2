@@ -70,8 +70,9 @@ func (r *HTMLRenderer) Render(w util.BufWriter, src []byte, node ast.Node, enter
 		return ast.WalkContinue, err
 	}
 	out, err := d2svg.Render(diagram, &d2svg.RenderOpts{
-		Pad:    d2svg.DEFAULT_PADDING,
-		Sketch: r.Sketch,
+		Pad:     d2svg.DEFAULT_PADDING,
+		Sketch:  r.Sketch,
+		ThemeID: r.ThemeID,
 	})
 	if err != nil {
 		_, err = w.Write(b.Bytes())
