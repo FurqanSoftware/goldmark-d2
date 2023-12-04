@@ -1,8 +1,6 @@
 package d2
 
 import (
-	"context"
-
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer"
@@ -11,8 +9,8 @@ import (
 )
 
 type Extender struct {
-	Layout  func(context.Context, *d2graph.Graph) error
-	ThemeID int64
+	Layout  d2graph.LayoutGraph
+	ThemeID *int64
 	Sketch  bool
 }
 

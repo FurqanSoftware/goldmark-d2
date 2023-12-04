@@ -15,14 +15,13 @@ import (
 	"oss.terrastruct.com/d2/lib/textmeasure"
 )
 
-var (
-	defaultLayout  = d2dagrelayout.DefaultLayout
-	defaultThemeID = d2themescatalog.CoolClassics.ID
-)
+func ptr[T any](v T) *T {
+	return &v
+}
 
 type HTMLRenderer struct {
-	Layout  func(context.Context, *d2graph.Graph) error
-	ThemeID int64
+	Layout  d2graph.LayoutGraph
+	ThemeID *int64
 	Sketch  bool
 }
 
@@ -53,27 +52,33 @@ func (r *HTMLRenderer) Render(w util.BufWriter, src []byte, node ast.Node, enter
 	if err != nil {
 		return ast.WalkStop, err
 	}
-	opts := &d2lib.CompileOptions{
-		Layout:  defaultLayout,
-		Ruler:   ruler,
-		ThemeID: defaultThemeID,
+
+	compileOpts := &d2lib.CompileOptions{
+		Ruler: ruler,
+		LayoutResolver: func(engine string) (d2graph.LayoutGraph, error) {
+			if r.Layout != nil {
+				return r.Layout, nil
+			}
+			return d2dagrelayout.DefaultLayout, nil
+		},
 	}
-	if r.Layout != nil {
-		opts.Layout = r.Layout
+
+	renderOpts := &d2svg.RenderOpts{
+		Pad:    ptr(int64(d2svg.DEFAULT_PADDING)),
+		Sketch: &r.Sketch,
 	}
-	if r.ThemeID != 0 {
-		opts.ThemeID = r.ThemeID
+	if r.ThemeID != nil {
+		renderOpts.ThemeID = r.ThemeID
+	} else {
+		renderOpts.ThemeID = &d2themescatalog.CoolClassics.ID
 	}
-	diagram, _, err := d2lib.Compile(context.Background(), b.String(), opts)
+
+	diagram, _, err := d2lib.Compile(context.Background(), b.String(), compileOpts, renderOpts)
 	if err != nil {
 		_, err = w.Write(b.Bytes())
 		return ast.WalkContinue, err
 	}
-	out, err := d2svg.Render(diagram, &d2svg.RenderOpts{
-		Pad:     d2svg.DEFAULT_PADDING,
-		Sketch:  r.Sketch,
-		ThemeID: r.ThemeID,
-	})
+	out, err := d2svg.Render(diagram, renderOpts)
 	if err != nil {
 		_, err = w.Write(b.Bytes())
 		return ast.WalkContinue, err
