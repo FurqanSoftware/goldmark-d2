@@ -1,8 +1,6 @@
 package d2
 
 import (
-	"context"
-
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer"
@@ -11,9 +9,9 @@ import (
 )
 
 type Extender struct {
-	Layout  func(context.Context, *d2graph.Graph) error
-	ThemeID int64
-	Sketch  bool
+	LayoutResolver func(engines string) (d2graph.LayoutGraph, error)
+	ThemeID        *int64
+	Sketch         bool
 }
 
 func (e *Extender) Extend(m goldmark.Markdown) {
@@ -22,9 +20,9 @@ func (e *Extender) Extend(m goldmark.Markdown) {
 	))
 	m.Renderer().AddOptions(renderer.WithNodeRenderers(
 		util.Prioritized(&HTMLRenderer{
-			Layout:  e.Layout,
-			ThemeID: e.ThemeID,
-			Sketch:  e.Sketch,
+			LayoutResolver: e.LayoutResolver,
+			ThemeID:        e.ThemeID,
+			Sketch:         e.Sketch,
 		}, 0),
 	))
 }
