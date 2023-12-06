@@ -6,12 +6,13 @@ Goldmark D2 is a [Goldmark](https://github.com/yuin/goldmark) extension providin
 
 ## Usage
 
-``` go
+```go
 goldmark.New(
 	goldmark.WithExtensions(&Extender{
 		// Defaults when omitted
-		Layout:  d2dagrelayout.Layout,
-		ThemeID: d2themescatalog.CoolClassics.ID,
+		Layout:  Ptr("dagre"), // "elk" also works
+		ThemeID: Ptr(d2themescatalog.CoolClassics.ID),
+		Sketch:	 Ptr(false),
 	}),
 ).Convert(src, dst)
 ```
@@ -22,13 +23,13 @@ goldmark.New(
 <tr>
 <td>
 
-~~~markdown
+````markdown
 The following diagram shows the important link between the letters X and Y:
 
 ```d2
 x -> y
 ```
-~~~
+````
 
 </td>
 <td>
@@ -43,7 +44,7 @@ x -> y
 
 {Sketch: true}
 
-~~~markdown
+````markdown
 ```d2
 dogs -> cats -> mice: chase
 replica 1 <-> replica 2
@@ -54,7 +55,7 @@ a -> b: To err is human, to moo bovine {
   }
 }
 ```
-~~~
+````
 
 </td>
 <td>
