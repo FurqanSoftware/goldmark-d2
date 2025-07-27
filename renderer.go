@@ -3,6 +3,7 @@ package d2
 import (
 	"bytes"
 	"context"
+	"log/slog"
 
 	"github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/renderer"
@@ -12,6 +13,7 @@ import (
 	"oss.terrastruct.com/d2/d2lib"
 	"oss.terrastruct.com/d2/d2renderers/d2svg"
 	"oss.terrastruct.com/d2/d2themes/d2themescatalog"
+	"oss.terrastruct.com/d2/lib/log"
 	"oss.terrastruct.com/d2/lib/textmeasure"
 )
 
@@ -73,7 +75,10 @@ func (r *HTMLRenderer) Render(w util.BufWriter, src []byte, node ast.Node, enter
 		renderOpts.ThemeID = &d2themescatalog.CoolClassics.ID
 	}
 
-	diagram, _, err := d2lib.Compile(context.Background(), b.String(), compileOpts, renderOpts)
+	ctx := context.Background()
+	ctx = log.With(ctx, slog.New(slog.DiscardHandler))
+
+	diagram, _, err := d2lib.Compile(ctx, b.String(), compileOpts, renderOpts)
 	if err != nil {
 		_, err = w.Write(b.Bytes())
 		return ast.WalkContinue, err
