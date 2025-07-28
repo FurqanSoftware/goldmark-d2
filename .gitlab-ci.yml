@@ -1,0 +1,26 @@
+stages:
+  - test
+
+lint:
+  image: golang:1.24.4
+  stage: test
+  script:
+    - go fmt ./...
+    - go vet ./...
+
+test go-1.24:
+  image: golang:1.24.4
+  stage: test
+  script:
+    - go install github.com/jstemmer/go-junit-report/v2@v2.1.0
+    - go install github.com/boumenot/gocover-cobertura@v1.3.0
+    - go get .
+    - go test -race -cover -coverprofile=profile.cov -v . | go-junit-report -out report.xml -iocopy -set-exit-code
+    - $GOPATH/bin/gocover-cobertura < profile.cov > coverage.xml
+  coverage: '/coverage: [0-9]+.[0-9]+% of statements/'
+  artifacts:
+    reports:
+      junit: report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
