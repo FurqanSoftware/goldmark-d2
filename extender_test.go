@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 
@@ -59,9 +60,23 @@ func TestExtenderTestExtender(t *testing.T) {
 				}
 			}
 
-			if diff := cmp.Diff(want, got.Bytes()); diff != "" {
-				t.Fatalf("%s:\n\nwant:\n%s\n\ngot:\n%s\n\ndiff:\n%s\n", entry.Name(), want, got.String(), diff)
+			wantN, gotN := normalize(want), normalize(got.Bytes())
+			if diff := cmp.Diff(wantN, gotN); diff != "" {
+				t.Fatalf("%s:\n\nwant:\n%s\n\ngot:\n%s\n\ndiff:\n%s\n", entry.Name(), wantN, gotN, diff)
 			}
 		})
 	}
+}
+
+// fontDataURI matches the payload of a base64 data URI, which D2 uses to embed
+// fonts in the SVG it renders.
+var fontDataURI = regexp.MustCompile(`(base64,)[A-Za-z0-9+/]+=*`)
+
+// normalize blanks out embedded font payloads. D2 compresses fonts with
+// compress/zlib, whose output varies between Go releases, so comparing those
+// bytes would tie the golden files to the toolchain that generated them. The
+// payload is still required to be present and non-empty; everything else,
+// including all geometry, is compared as-is.
+func normalize(b []byte) []byte {
+	return fontDataURI.ReplaceAll(b, []byte("${1}<font>"))
 }
