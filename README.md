@@ -7,11 +7,19 @@ Goldmark D2 is a [Goldmark](https://github.com/yuin/goldmark) extension providin
 ## Usage
 
 ``` go
+import (
+	d2 "github.com/FurqanSoftware/goldmark-d2"
+	"github.com/d2lang/d2/d2layouts/d2dagrelayout"
+	"github.com/d2lang/d2/d2themes/d2themescatalog"
+	"github.com/yuin/goldmark"
+)
+
 goldmark.New(
-	goldmark.WithExtensions(&Extender{
+	goldmark.WithExtensions(&d2.Extender{
 		// Defaults when omitted
-		Layout:  d2dagrelayout.Layout,
-		ThemeID: d2themescatalog.CoolClassics.ID,
+		Layout:  d2dagrelayout.DefaultLayout,
+		ThemeID: &d2themescatalog.CoolClassics.ID,
+		Sketch:  false,
 	}),
 ).Convert(src, dst)
 ```
