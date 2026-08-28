@@ -80,15 +80,27 @@ func (r *HTMLRenderer) Render(w util.BufWriter, src []byte, node ast.Node, enter
 
 	diagram, _, err := d2lib.Compile(ctx, b.String(), compileOpts, renderOpts)
 	if err != nil {
-		_, err = w.Write(b.Bytes())
-		return ast.WalkContinue, err
+		return writeSource(w, b.Bytes())
 	}
 	out, err := d2svg.Render(diagram, renderOpts)
 	if err != nil {
-		_, err = w.Write(b.Bytes())
-		return ast.WalkContinue, err
+		return writeSource(w, b.Bytes())
 	}
 
 	_, err = w.Write(out)
+	return ast.WalkContinue, err
+}
+
+// writeSource writes src as escaped code. It is the fallback for a block that
+// cannot be compiled or rendered, so the source must not reach the output
+// unescaped.
+func writeSource(w util.BufWriter, src []byte) (ast.WalkStatus, error) {
+	if _, err := w.WriteString("<pre><code>"); err != nil {
+		return ast.WalkContinue, err
+	}
+	if _, err := w.Write(util.EscapeHTML(src)); err != nil {
+		return ast.WalkContinue, err
+	}
+	_, err := w.WriteString("</code></pre>")
 	return ast.WalkContinue, err
 }
