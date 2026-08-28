@@ -4,6 +4,14 @@
 
 Goldmark D2 is a [Goldmark](https://github.com/yuin/goldmark) extension providing diagram support through [D2](https://d2lang.com/).
 
+## Install
+
+``` sh
+go get github.com/FurqanSoftware/goldmark-d2
+```
+
+Requires Go 1.27 or later, inherited from D2 v0.8.
+
 ## Usage
 
 ``` go
@@ -23,6 +31,18 @@ goldmark.New(
 	}),
 ).Convert(src, dst)
 ```
+
+Every field is optional:
+
+- `Layout` selects the layout engine. Defaults to `d2dagrelayout.DefaultLayout`.
+- `ThemeID` selects a theme; see the `d2themescatalog` package for the catalog. Defaults to `CoolClassics`.
+- `Sketch` renders diagrams in a hand-drawn style. Defaults to `false`.
+
+## Output
+
+Each `d2` block is replaced by an inline SVG wrapped in a `<div class="d2">`, which you can target for styling. The SVG carries its own `<style>`, so no additional CSS is needed.
+
+A block that D2 cannot compile falls back to its source, HTML-escaped, in a `<pre><code>` inside the same wrapper. `Convert` still succeeds, so one bad diagram does not take down the rest of the document.
 
 ## Example
 
@@ -73,9 +93,9 @@ a -> b: To err is human, to moo bovine {
 </tr>
 </table>
 
-## To-dos
+## Upgrading
 
-- [x] Option for hand-drawn rendering
+As of D2 v0.8, D2 moved from `oss.terrastruct.com/d2` to `github.com/d2lang/d2`. If you set `Layout` or `ThemeID`, update your own imports to match.
 
 ## More Goldmark Extensions
 
