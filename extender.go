@@ -1,11 +1,11 @@
 package d2
 
 import (
+	"github.com/d2lang/d2/d2graph"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer"
 	"github.com/yuin/goldmark/util"
-	"oss.terrastruct.com/d2/d2graph"
 )
 
 type Extender struct {
