@@ -5,7 +5,7 @@ lint:
   image: golang:1.27.0
   stage: test
   script:
-    - go fmt ./...
+    - test -z "$(gofmt -l . | tee /dev/stderr)"
     - go vet ./...
 
 test go-1.27:
