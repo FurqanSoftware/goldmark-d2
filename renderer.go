@@ -7,6 +7,7 @@ import (
 
 	"github.com/d2lang/d2/d2graph"
 	"github.com/d2lang/d2/d2layouts/d2dagrelayout"
+	"github.com/d2lang/d2/d2layouts/d2elklayout"
 	"github.com/d2lang/d2/d2lib"
 	"github.com/d2lang/d2/d2renderers/d2svg"
 	"github.com/d2lang/d2/d2themes/d2themescatalog"
@@ -61,7 +62,7 @@ func (r *HTMLRenderer) Render(w util.BufWriter, src []byte, node ast.Node, enter
 			if r.Layout != nil {
 				return r.Layout, nil
 			}
-			return d2dagrelayout.DefaultLayout, nil
+			return layoutForEngine(engine), nil
 		},
 	}
 
@@ -89,6 +90,17 @@ func (r *HTMLRenderer) Render(w util.BufWriter, src []byte, node ast.Node, enter
 
 	_, err = w.Write(out)
 	return ast.WalkContinue, err
+}
+
+// layoutForEngine maps the layout engine D2 resolved for a block, either from
+// its d2-config or from D2's own default, onto a layout function.
+func layoutForEngine(engine string) d2graph.LayoutGraph {
+	switch engine {
+	case "elk":
+		return d2elklayout.DefaultLayout
+	default:
+		return d2dagrelayout.DefaultLayout
+	}
 }
 
 // writeSource writes src as escaped code. It is the fallback for a block that

@@ -17,7 +17,6 @@ Requires Go 1.27 or later, inherited from D2 v0.8.
 ``` go
 import (
 	d2 "github.com/FurqanSoftware/goldmark-d2"
-	"github.com/d2lang/d2/d2layouts/d2dagrelayout"
 	"github.com/d2lang/d2/d2themes/d2themescatalog"
 	"github.com/yuin/goldmark"
 )
@@ -25,7 +24,7 @@ import (
 goldmark.New(
 	goldmark.WithExtensions(&d2.Extender{
 		// Defaults when omitted
-		Layout:  d2dagrelayout.DefaultLayout,
+		Layout:  nil, // per-diagram, Dagre unless the block says otherwise
 		ThemeID: &d2themescatalog.CoolClassics.ID,
 		Sketch:  false,
 	}),
@@ -34,9 +33,29 @@ goldmark.New(
 
 Every field is optional:
 
-- `Layout` selects the layout engine. Defaults to `d2dagrelayout.DefaultLayout`.
+- `Layout` forces a layout engine on every diagram, and accepts any `d2graph.LayoutGraph`, including a configured one such as `d2elklayout.Layout` bound to its `ConfigurableOpts`. When omitted, each block is laid out by the engine it names itself (see below), which is Dagre unless stated otherwise.
 - `ThemeID` selects a theme; see the `d2themescatalog` package for the catalog. Defaults to `CoolClassics`.
 - `Sketch` renders diagrams in a hand-drawn style. Defaults to `false`.
+
+### Layout engine
+
+A block picks its own engine with D2's `layout-engine` config. Both `dagre` and `elk` are built in:
+
+~~~markdown
+```d2
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+a -> x
+b -> x
+c -> x
+```
+~~~
+
+Setting `Layout` on the extender overrides this for every block.
 
 ## Output
 
