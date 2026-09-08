@@ -10,7 +10,7 @@ Goldmark D2 is a [Goldmark](https://github.com/yuin/goldmark) extension providin
 go get github.com/FurqanSoftware/goldmark-d2
 ```
 
-Requires Go 1.27 or later, inherited from D2 v0.8.
+Requires Go 1.27 or later, inherited from D2 v0.9.
 
 ## Usage
 
@@ -56,6 +56,8 @@ c -> x
 ~~~
 
 Setting `Layout` on the extender overrides this for every block.
+
+D2 v0.9 also bundles `tala`, which this extension does not route: a block naming it is laid out by Dagre instead. Set `Layout` explicitly to use it.
 
 ## Output
 
