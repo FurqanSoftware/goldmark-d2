@@ -8,6 +8,7 @@ import (
 	"github.com/d2lang/d2/d2graph"
 	"github.com/d2lang/d2/d2layouts/d2dagrelayout"
 	"github.com/d2lang/d2/d2layouts/d2elklayout"
+	"github.com/d2lang/d2/d2layouts/d2talalayout"
 	"github.com/d2lang/d2/d2lib"
 	"github.com/d2lang/d2/d2renderers/d2svg"
 	"github.com/d2lang/d2/d2themes/d2themescatalog"
@@ -98,6 +99,8 @@ func layoutForEngine(engine string) d2graph.LayoutGraph {
 	switch engine {
 	case "elk":
 		return d2elklayout.DefaultLayout
+	case "tala":
+		return d2talalayout.DefaultLayout
 	default:
 		return d2dagrelayout.DefaultLayout
 	}

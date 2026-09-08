@@ -39,7 +39,7 @@ Every field is optional:
 
 ### Layout engine
 
-A block picks its own engine with D2's `layout-engine` config. Both `dagre` and `elk` are built in:
+A block picks its own engine with D2's `layout-engine` config. `dagre`, `elk`, and `tala` are all built in:
 
 ~~~markdown
 ```d2
@@ -56,8 +56,6 @@ c -> x
 ~~~
 
 Setting `Layout` on the extender overrides this for every block.
-
-D2 v0.9 also bundles `tala`, which this extension does not route: a block naming it is laid out by Dagre instead. Set `Layout` explicitly to use it.
 
 ## Output
 
